@@ -47,7 +47,10 @@ int main()
     for (int i=0; i < size; i++)
     {
         assert(res_n[i] == res_s[i]);
+        // ассерта нет  
     }
+
+
     // cout << "normal time :" << (double)(end_normal - start_normal) / CLOCKS_PER_SEC << endl;
     // cout << "sse time :" << (double)(end_sse - end_normal) / CLOCKS_PER_SEC << endl;
     

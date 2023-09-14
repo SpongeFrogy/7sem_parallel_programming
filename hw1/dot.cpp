@@ -59,8 +59,15 @@ int main()
     // clock_t end_normal = clock();
     float res_s = dot_sse(a, b, size);
     // clock_t end_sse = clock();
-    cout << setprecision(numeric_limits<float>::digits10 + 2) << res_n << std::endl;
-    std::cout << std::setprecision(std::numeric_limits<float>::digits10 + 2) << res_s << std::endl;
+    cout << setprecision(numeric_limits<float>::digits10 + 2) << res_n << endl;
+    cout << setprecision(numeric_limits<float>::digits10 + 2) << res_s << endl;
+    //114.01702
+    //114.01714
+
+
+
+
+
     //cout << res_n << endl << res_s << endl << res_g;
     // cout << "normal time :" << (double)(end_normal - start_normal) / CLOCKS_PER_SEC << endl;
     // cout << "sse time :" << (double)(end_sse - end_normal) / CLOCKS_PER_SEC << endl;
