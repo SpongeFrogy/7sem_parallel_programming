@@ -61,8 +61,8 @@ int main()
     // clock_t end_sse = clock();
     cout << setprecision(numeric_limits<float>::digits10 + 2) << res_n << endl;
     cout << setprecision(numeric_limits<float>::digits10 + 2) << res_s << endl;
-    //114.01702
-    //114.01714
+    // 114.08544
+    // 114.08556
     assert(res_n == res_s);
     // ассерт не прошел (
 
