@@ -47,7 +47,7 @@ return res;
 
 int main()
 {
-    int size = 10001;
+    int size = 10003;
     float a[size], b[size];
     for (int i=0; i<size; i++)
     {
@@ -63,6 +63,8 @@ int main()
     cout << setprecision(numeric_limits<float>::digits10 + 2) << res_s << endl;
     //114.01702
     //114.01714
+    assert(res_n == res_s);
+    // ассерт не прошел (
 
 
 

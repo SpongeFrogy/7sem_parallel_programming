@@ -31,7 +31,7 @@ void sqrt_sse(float* a, int size, float* b)
 
 int main()
 {
-    int size = 10001;
+    int size = 10003;
     float a[size];
     for (int i=0; i<size; i++)
     {
@@ -47,7 +47,7 @@ int main()
     for (int i=0; i < size; i++)
     {
         assert(res_n[i] == res_s[i]);
-        // ассерта нет  
+        // ассерта прошел  
     }
 
 
