@@ -36,7 +36,6 @@ float dot_sse(float* a,float* b,int n)
         sum = _mm_add_ps(sum, mul);
 
     }
-    cout << i << " :sse"<<  endl;
     for (int i0=i;i0<n;i0++)
     {
         res+=a[i0]*b[i0];
