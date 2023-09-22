@@ -65,6 +65,12 @@ int main() {
         }
         cout << "Product: " << data[i].product << endl;
     }
+    // Row 0: 2 0 5 2 8 3 Product: 15
+    // Row 1: 6 4 8 3 7 3 Product: 63
+    // Row 2: 2 9 6 8 7 2 Product: 63
+    // Row 3: 0 2 6 1 9 8 Product: 9
+    // Row 4: 8 5 3 0 0 6 Product: 15
+    // Row 5: 8 5 4 6 1 5 Product: 25
 
     return 0;
 }

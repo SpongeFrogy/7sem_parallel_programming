@@ -47,7 +47,12 @@ int main()
     cout << "remove value that not in set: " << set.remove(1) << endl;
     cout << "contains value that contains: " << set.contains(2) << endl;
     cout << "contains value that not contains: " << set.contains(3) << endl;
-
+    // add new value to set: 1
+    // add to set value that already in it: 0
+    // remove value: 1
+    // remove value that not in set: 0
+    // contains value that contains: 1
+    // contains value that not contains: 0
 
     return 0;
 }
