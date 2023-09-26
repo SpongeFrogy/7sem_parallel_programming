@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <cstdlib>
 #include <iostream>
+#include <synchapi.h>
 #include <unistd.h>
 
 using namespace std;
@@ -57,8 +58,10 @@ int main() {
         }
     }
 
+    WaitForMultipleObjects(rows, threads, 1, 1e4);
+
     for (int i = 0; i < rows; i++) {
-        WaitForSingleObject(threads[i], INFINITE); // wait till threads[i] is done 
+        // WaitForSingleObject(threads[i], 1e3); // wait till threads[i] is done 
         cout << "Row " << i << ": ";
         for (int j = 0; j < cols; j++) {
             cout << matrix[i][j] << " ";
