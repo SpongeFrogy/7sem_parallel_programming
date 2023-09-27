@@ -59,7 +59,7 @@ int main() {
     }
 
     WaitForMultipleObjects(rows, threads, 1, 1e4);
-
+    CloseHandle(threads);
     for (int i = 0; i < rows; i++) {
         // WaitForSingleObject(threads[i], 1e3); // wait till threads[i] is done 
         cout << "Row " << i << ": ";
