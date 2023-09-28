@@ -26,7 +26,10 @@ void writeFunc()
         pool.push_back(v);
         m.unlock();
     }
-    
+    else
+    {
+        cout << "failed access" << endl;
+    }
 }
 
 void long_writeFunc()
