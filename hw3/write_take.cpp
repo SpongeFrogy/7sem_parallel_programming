@@ -15,7 +15,7 @@ using namespace std;
 vector<int> pool;
 
 timed_mutex m;
-
+timed_mutex log_m;
 chrono::milliseconds timeout = 100ms;
 
 void writeFunc()
@@ -28,15 +28,17 @@ void writeFunc()
     }
     else
     {
-        cout << "failed access" << endl;
+        log_m.lock();
+        cout << "Writer Thread: Failed access" << endl;
+        log_m.unlock();
     }
-    cout << "writeFunc is done" << endl;
 }
 
 void long_writeFunc()
 {
     if (m.try_lock_for(timeout))
     {
+        //cout << m.try_lock() << endl;
         Sleep(150);
         int v = 7;  
         pool.push_back(v);
@@ -44,23 +46,21 @@ void long_writeFunc()
     }
     else
     {
-        cout << "failed access" << endl;
+        cout << "Writer Thread: Failed access" << endl;
     }
-    cout << "long_writeFunc is done" << endl;
 }
 
 void empty_writeFunc()
 {
     if (m.try_lock_for(timeout))
     {
-        cout << "empty work" << endl;
+        // empty work
         m.unlock();
     }
     else
     {
-        cout << "failed access" << endl;
+        cout << "Writer Thread: Failed access" << endl;
     }
-    cout << "empty_writeFunc is done" << endl;
 }
 
 void grabFunc()
@@ -74,16 +74,16 @@ void grabFunc()
 
         int v = pool.back();
         pool.pop_back();
-        
-        cout << "value is: " << v << endl;
+        log_m.lock();
+        cout << "Taken data is: " << v << endl;
+        log_m.unlock();
         m.unlock();
 
     }
     else
     {
-        cout << "failed access" << endl;
+        cout << "Reader Thread: Failed access" << endl;
     }
-    cout << "grabFunc is done" << endl;
 }
 
 
@@ -96,7 +96,6 @@ int main()
     t1.join();
     t2.join();
 
-    Sleep(100);
     cout << "--------------------------------------" << endl;
     thread t3(long_writeFunc);
     thread t4(grabFunc);
@@ -104,7 +103,6 @@ int main()
     t4.join();
 
     pool.pop_back();
-    Sleep(100);
     cout << "--------------------------------------" << endl;
     
     
