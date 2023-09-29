@@ -30,6 +30,7 @@ void writeFunc()
     {
         cout << "failed access" << endl;
     }
+    cout << "writeFunc is done" << endl;
 }
 
 void long_writeFunc()
@@ -45,6 +46,7 @@ void long_writeFunc()
     {
         cout << "failed access" << endl;
     }
+    cout << "long_writeFunc is done" << endl;
 }
 
 void empty_writeFunc()
@@ -58,6 +60,7 @@ void empty_writeFunc()
     {
         cout << "failed access" << endl;
     }
+    cout << "empty_writeFunc is done" << endl;
 }
 
 void grabFunc()
@@ -66,7 +69,7 @@ void grabFunc()
     {
         if (pool.empty())
         {
-            throw length_error(" pool is empty");
+            throw length_error("pool is empty");
         }
 
         int v = pool.back();
@@ -80,8 +83,7 @@ void grabFunc()
     {
         cout << "failed access" << endl;
     }
-    
-
+    cout << "grabFunc is done" << endl;
 }
 
 
@@ -111,12 +113,17 @@ int main()
     t5.join();
     t6.join();
 
-// value is: 7
+// writeFunc is donevalue is: 
+// 7
+// grabFunc is done
 // --------------------------------------
 // failed access
+// grabFunc is done
+// long_writeFunc is done
 // --------------------------------------
 // empty work
+// empty_writeFunc is done
 // terminate called after throwing an instance of 'std::length_error'
-//   what():   pool is empty
+//   what():  pool is empty
     return 1;
 }
