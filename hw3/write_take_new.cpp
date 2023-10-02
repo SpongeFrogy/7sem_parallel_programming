@@ -1,14 +1,7 @@
-#include <chrono>
-#include <cstdlib>
 #include <iostream>
-#include <iterator>
-#include <ostream>
-#include <stdexcept>
-#include <synchapi.h>
-#include <thread>
-#include <time.h>
-#include <vector>
 #include <mutex>
+#include <thread>
+#include <vector>
 
 using namespace std;
 

@@ -1,9 +1,5 @@
-#include <cstdio>
-#include <cstdlib>
 #include <iostream>
 #include <mutex>
-#include <new>
-#include <ostream>
 #include <shared_mutex>
 #include <synchapi.h>
 #include <thread>
