@@ -18,7 +18,7 @@ class Message
 {
     public:
         void set(int value) {this->_set(value);};
-        int read() {return this->_read();};
+        void read() {this->_read();};
         
     private:
         mutex _m;
@@ -34,18 +34,18 @@ class Message
 
             this ->_cout("Set value: ", value, this_thread::get_id());
         }
-        int _read()
+        void _read()
         {
-            if (this->_pool.empty())
-            {
-                this->_cout("Reader Thread: pool len is ", 0, this_thread::get_id());
-            }
             lock_guard<shared_timed_mutex> lock(_shared_m);
+            // if (this->_pool.empty())
+            // {
+            //     this->_cout("Reader Thread: pool len is ", 0, this_thread::get_id());
+            //     return;
+            // }
             Sleep(rand());
             int value = this->_pool.back();
             auto id = this_thread::get_id();
             this ->_cout("read value: ", value, id);
-            return value;
         }
 
         void _cout(string mes, int s, thread::id id)
@@ -68,7 +68,7 @@ int main()
 
     for (int i = 0; i < numThreads; ++i) {
         writers.emplace_back([](int id){resourse.set(id);}, i);
-        readers.emplace_back([](int id){resourse.read();}, i+numThreads);
+        readers.emplace_back([](int id){resourse.read();}, i);
     }
 
     for (std::thread& thread : writers) {
