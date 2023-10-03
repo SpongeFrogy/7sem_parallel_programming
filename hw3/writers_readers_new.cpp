@@ -16,36 +16,29 @@ shared_timed_mutex shared_m;
 
 class Message
 {
-    public:
-        void set(int value) {this->_set(value);};
-        void read() {this->_read();};
-        
     private:
         mutex _m;
         mutex _log_m;
         shared_timed_mutex _shared_m;
         vector<int> _pool = {0};
-
-        void _set(const int &value)
+    public:
+        void set(const int &value)
         {
             lock_guard<mutex> lock(_m);
             Sleep(rand());
-            this->_pool.push_back(value);
+            _pool.push_back(value);
 
-            this ->_cout("Set value: ", value, this_thread::get_id());
+            _cout("Set value: ", value, this_thread::get_id());
         }
-        void _read()
+        void read()
         {
             lock_guard<shared_timed_mutex> lock(_shared_m);
-            // if (this->_pool.empty())
-            // {
-            //     this->_cout("Reader Thread: pool len is ", 0, this_thread::get_id());
-            //     return;
-            // }
+            if (_pool.empty()){throw length_error("pool is empty");}
+            
             Sleep(rand());
-            int value = this->_pool.back();
+            int value = _pool.back();
             auto id = this_thread::get_id();
-            this ->_cout("read value: ", value, id);
+            _cout("read value: ", value, id);
         }
 
         void _cout(string mes, int s, thread::id id)
