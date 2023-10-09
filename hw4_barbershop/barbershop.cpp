@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int SIZE = 3;
+int SIZE = 2;
 
 
 class BarberShop
@@ -32,7 +32,7 @@ class BarberShop
         _cv.wait(lk, [this]{return !_pool.empty();});
         _worker_is_ready = false;
 
-        this_thread::sleep_for(chrono::milliseconds(10));
+        this_thread::sleep_for(chrono::milliseconds(3));
         
         {lock_guard<mutex> lock(_log_m);
         std::cout << "Worker thread is processing " << _pool.front() << endl;}
@@ -99,3 +99,19 @@ int main()
     t4.join();
     worker.join();
 }
+/*
+возможный вывод:
+
+costumer: 7 in queue
+costumer: 5 in queue
+costumer: 6 going home
+costumer: 4 going home
+Worker thread is processing 7
+Worker thread signals cut completed
+Worker thread is processing 5
+Worker thread signals cut completed
+costumer: 2 in queue
+Worker thread is processing 2
+Worker thread signals cut completed
+last costumer
+*/
