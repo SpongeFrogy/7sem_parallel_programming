@@ -10,6 +10,7 @@ using namespace std;
 
 int SIZE = 2;
 
+// TODO: Barber, Costumer make class 
 
 class BarberShop
 {
