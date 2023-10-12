@@ -11,8 +11,7 @@ int N_PHILOSOPHER = 5;
 
 mutex log_m;
 
-class Fork {
-public:
+struct Fork {
   mutex m;
 };
 
@@ -45,3 +44,9 @@ int main() {
 
   return 1;
 }
+/*
+Philosopher 4 ate
+Philosopher 2 ate
+Philosopher 3 ate
+Philosopher 5 ate
+*/
