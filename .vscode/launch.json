@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw6_omp",
-      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw6_omp/build/Debug/outDebug",
+      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw5_philosophy",
+      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw5_philosophy/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
