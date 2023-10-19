@@ -21,9 +21,11 @@ public:
       : _left(left), _right(right){}; // передача нужных вилок
 
   ~Philosopher() {
-    if (isFinishedEat()){_th.join();};
+    if (isFinishedEat()) {
+      _th.join();
+    };
     {
-      lock_guard<mutex> lk(log_m);
+      //lock_guard<mutex> lk(log_m);
       cout << "Philosopher deleted\n";
     }
   }; // тоже проверить закончил ли есть
@@ -53,20 +55,23 @@ private:
 
 int main() {
 
-    Fork fork[N_FORK]; 
-    Philosopher *phi[N_PHILOSOPHER];
+  Fork fork[N_FORK];
+  Philosopher *phi[N_PHILOSOPHER];
 
-    for (int i = 0; i < N_PHILOSOPHER; i++) {
-        phi[i] = new Philosopher(&fork[i], &fork[(i + 1) % N_FORK]);
-    }
+  for (int i = 0; i < N_PHILOSOPHER; i++) {
+    phi[i] = new Philosopher(&fork[i], &fork[(i + 1) % N_FORK]);
+  }
 
-    for (int i = 0; i < N_PHILOSOPHER; i++) {
-        phi[i]->eat(); // start each philosopher eating
-    }
+  for (int i = 0; i < N_PHILOSOPHER; i++) {
+    phi[i]->eat(); // start each philosopher eating
+  }
 
-    for (int i = 0; i < N_PHILOSOPHER; i++) {
-        delete phi[i]; // don't forget to clean up when you're done
-    }
+  Sleep(10000);
+  //this_thread::sleep_for(chrono::minutes(1));
 
-    return 0;
+  // for (int i = 0; i < N_PHILOSOPHER; i++) {
+  //     delete phi[i]; // don't forget to clean up when you're done
+  // }
+
+  return 0;
 }
