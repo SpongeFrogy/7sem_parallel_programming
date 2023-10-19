@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw5_philosophy",
-      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw5_philosophy/build/Debug/outDebug",
+      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw7_atomic",
+      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw7_atomic/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
