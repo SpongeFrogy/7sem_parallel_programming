@@ -18,14 +18,32 @@ public:
     }
   }
   void stop() {
-    if (_isRunning.load()) {
-      _cv.notify_all();
-      _isRunning.store(false);
-      if (_t.joinable()) {
-        _t.join();
-      }
+    if (!_isRunning) {
+      return;
+    }
+    auto isRunningPrev = _isRunning.exchange(false);
+    if (!isRunningPrev) {
+      return;
+    }
+
+    _cv.notify_all();
+    if (_t.joinable()) {
+      _t.join();
     }
   }
+  /*
+    void stop() {
+      if (_isRunning.load()) {
+        _cv.notify_all();
+        _isRunning.store(false);
+        if (_t.joinable()) {
+          _t.join();
+        }
+      }
+    }
+
+  */
+
   void set_n(int n) { _n = n; }
 
 private:
