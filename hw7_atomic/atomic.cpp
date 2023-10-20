@@ -31,7 +31,7 @@ public:
       _t.join();
     }
   }
-  /*
+  /* старая версия
     void stop() {
       if (_isRunning.load()) {
         _cv.notify_all();
@@ -59,9 +59,7 @@ private:
 
       auto duration =
           chrono::duration_cast<chrono::seconds>(end - begin).count();
-      cout << "Thread running "
-           << chrono::duration_cast<chrono::seconds>(end - begin).count()
-           << " seconds" << endl;
+      cout << "Thread running " << duration << " seconds" << endl;
     }
   };
 
