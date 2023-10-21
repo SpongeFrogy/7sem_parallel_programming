@@ -12,3 +12,5 @@ in general:
 - [set and get](hw3) - 2 classic parallel programming problems (1 write thread and 2 grab thread, n write threads and m read threads)
 - [barbershop](hw4_barbershop/barberShop_.cpp) - barbershop problem
 - [philosophers](hw5_philosophy/philosophy.cpp) - philosophy dinner
+- [OpenMP](hw6_omp) - simple examples of OpenMP
+- [atomic variable](hw7_atomic/atomic.cpp) - class has thread as attribute that `cout` duration of working every `n` seconds. Implemented methods `start`, `stop`, `set_n`
