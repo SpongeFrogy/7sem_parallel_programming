@@ -1,4 +1,6 @@
 #include <algorithm>
+#include <cassert>
+#include <chrono>
 #include <cstdlib>
 #include <iostream>
 #include <omp.h>
@@ -6,13 +8,12 @@
 
 using namespace std;
 
-template <typename T>
-T max_omp(const vector<T> &data) {
+template <typename T> T max_omp(const vector<T> &data) {
   T max_value = data[0];
-
+  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 #pragma omp parallel for
   for (int i = 0; i < data.size(); i++) {
-    
+
 #pragma omp critical
     {
       if (data[i] > max_value) {
@@ -20,40 +21,50 @@ T max_omp(const vector<T> &data) {
       }
     }
   }
+  chrono::steady_clock::time_point end = chrono::steady_clock::now();
+  auto duration =
+      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
+  cout << duration << " ms. ";
   return max_value;
 }
 
-template <typename T>
-T min_omp(const vector<T> &data) {
-  T min_value = data[0];
+template <typename T> T max_linear(const vector<T> &data) {
+  T max_value = data[0];
+  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
-#pragma omp parallel for
   for (int i = 0; i < data.size(); i++) {
-
-#pragma omp critical
     {
-      if (data[i] < min_value) {
-        min_value = data[i];
+      if (data[i] > max_value) {
+        max_value = data[i];
       }
     }
   }
-  return min_value;
+  chrono::steady_clock::time_point end = chrono::steady_clock::now();
+  auto duration =
+      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
+  cout << duration << " ms. ";
+  return max_value;
 }
 
 int main() {
+  omp_set_dynamic(0);
+  omp_set_num_threads(6);
 
-  vector<int> data(10, 0);
+  vector<int> data(1000000, 0);
   srand(time(0));
   generate(data.begin(), data.end(), rand);
 
-  cout << "vector: ";
-  for (int v : data) {
-    cout << v << ", ";
-  }
-  cout << endl;
+  cout << "OpenMP:\t";
+  auto max_v_omp = max_omp(data);
 
-  cout << "Minimum value: " << min_omp(data) << endl;
-  cout << "Maximum value: " << max_omp(data) << endl;
+  cout << "\nLinear:\t";
+  auto max_v_lin = max_linear(data);
+
+  assert(max_v_lin == max_v_omp);
 
   return 0;
 }
+/*
+OpenMP: 145 ms. 
+Linear: 4 ms.
+*/
