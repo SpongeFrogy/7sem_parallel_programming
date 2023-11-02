@@ -28,6 +28,7 @@ template <typename T> T reduction_atomic(const vector<T> &data) {
 
 template <typename T> T reduction_critical(const vector<T> &data) {
   T sum = T();
+
   chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
 #pragma omp parallel
@@ -53,6 +54,7 @@ template <typename T> T reduction_critical(const vector<T> &data) {
 template <typename T> T reduction_lock(const vector<T> &data) {
   mutex m;
   T sum = T();
+
   chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
 #pragma omp parallel
@@ -78,12 +80,14 @@ template <typename T> T reduction_lock(const vector<T> &data) {
 
 template <typename T> T reduction_der_for(const vector<T> &data) {
   T sum = T();
+
   chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
 #pragma omp parallel for reduction(+ : sum)
   for (int i = 0; i < data.size(); i++) {
     sum += data[i];
   }
+
   chrono::steady_clock::time_point end = chrono::steady_clock::now();
   auto duration =
       chrono::duration_cast<chrono::milliseconds>(end - begin).count();
@@ -94,10 +98,13 @@ template <typename T> T reduction_der_for(const vector<T> &data) {
 
 template <typename T> T reduction_linear(const vector<T> &data) {
   T sum = T();
+
   chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
   for (int i = 0; i < data.size(); i++) {
     sum += data[i];
   }
+
   chrono::steady_clock::time_point end = chrono::steady_clock::now();
   auto duration =
       chrono::duration_cast<chrono::milliseconds>(end - begin).count();
@@ -136,9 +143,9 @@ int main() {
   return 0;
 }
 /*
-Atomic:         22 ms. 
-Critical:       19 ms. 
-Lock:           16 ms. 
-Directive for:  19 ms. 
-Linear:         69 ms. 
+Atomic:         22 ms.
+Critical:       19 ms.
+Lock:           16 ms.
+Directive for:  19 ms.
+Linear:         69 ms.
 */

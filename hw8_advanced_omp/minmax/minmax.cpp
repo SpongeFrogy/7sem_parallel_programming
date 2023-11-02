@@ -48,7 +48,7 @@ template <typename T> T max_linear(const vector<T> &data) {
 
 int main() {
   omp_set_dynamic(0);
-  omp_set_num_threads(6);
+  omp_set_num_threads(4);
 
   vector<int> data(1000000, 0);
   srand(time(0));
@@ -65,6 +65,6 @@ int main() {
   return 0;
 }
 /*
-OpenMP: 145 ms. 
+OpenMP: 145 ms.
 Linear: 4 ms.
 */

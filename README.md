@@ -14,3 +14,4 @@ in general:
 - [philosophers](hw5_philosophy/philosophers.cpp) - philosophy dinner
 - [OpenMP](hw6_omp) - simple examples of OpenMP
 - [atomic variable](hw7_atomic/atomic.cpp) - class has thread as attribute that `cout` duration of working every `n` seconds. Implemented methods `start`, `stop`, `set_n`
+- [Advanced OpenMP](hw8_advaced_omp) - find min(max), different types of reduction, sections
