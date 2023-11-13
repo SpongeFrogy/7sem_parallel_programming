@@ -10,18 +10,15 @@ using namespace std;
 template <typename T> T reduction_atomic(const vector<T> &data) {
   T sum = T();
 
-  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+  auto begin = omp_get_wtime();
 
 #pragma omp parallel for reduction(+ : sum)
   for (int i = 0; i < data.size(); i++) {
     sum += data[i];
   }
+  auto duration = omp_get_wtime() - begin;
 
-  chrono::steady_clock::time_point end = chrono::steady_clock::now();
-  auto duration =
-      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-
-  cout << duration << " ms. ";
+  cout << duration << " s. ";
 
   return sum;
 }
@@ -29,7 +26,7 @@ template <typename T> T reduction_atomic(const vector<T> &data) {
 template <typename T> T reduction_critical(const vector<T> &data) {
   T sum = T();
 
-  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+  auto begin = omp_get_wtime();
 
 #pragma omp parallel
   {
@@ -41,75 +38,68 @@ template <typename T> T reduction_critical(const vector<T> &data) {
 #pragma omp critical
     sum += local_sum;
   }
+  auto duration = omp_get_wtime() - begin;
 
-  chrono::steady_clock::time_point end = chrono::steady_clock::now();
-  auto duration =
-      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-
-  cout << duration << " ms. ";
+  cout << duration << " s. ";
 
   return sum;
 }
 
-template <typename T> T reduction_lock(const vector<T> &data) {
-  mutex m;
+template <typename T> T reduction_lock(const std::vector<T> &data) {
+  omp_lock_t sum_lock;
   T sum = T();
 
-  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+  omp_init_lock(&sum_lock);
 
-#pragma omp parallel
+  auto begin = omp_get_wtime();
+
+#pragma omp parallel shared(sum_lock)
   {
     T local_sum = T();
 #pragma omp for
     for (int i = 0; i < data.size(); i++) {
       local_sum += data[i];
     }
-    {
-      lock_guard<mutex> lk(m);
-      sum += local_sum;
-    }
+    omp_set_lock(&sum_lock);
+    sum += local_sum;
+    omp_unset_lock(&sum_lock);
   }
 
-  chrono::steady_clock::time_point end = chrono::steady_clock::now();
-  auto duration =
-      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
+  auto duration = omp_get_wtime() - begin;
 
-  cout << duration << " ms. ";
+  std::cout << duration << " s. ";
+
+  omp_destroy_lock(&sum_lock);
+
   return sum;
 }
 
 template <typename T> T reduction_der_for(const vector<T> &data) {
   T sum = T();
 
-  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+  auto begin = omp_get_wtime();
 
 #pragma omp parallel for reduction(+ : sum)
   for (int i = 0; i < data.size(); i++) {
     sum += data[i];
   }
+  auto duration = omp_get_wtime() - begin;
 
-  chrono::steady_clock::time_point end = chrono::steady_clock::now();
-  auto duration =
-      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-
-  cout << duration << " ms. ";
+  cout << duration << " s. ";
   return sum;
 }
 
 template <typename T> T reduction_linear(const vector<T> &data) {
   T sum = T();
 
-  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+  auto begin = omp_get_wtime();
 
   for (int i = 0; i < data.size(); i++) {
     sum += data[i];
   }
+  auto duration = omp_get_wtime() - begin;
 
-  chrono::steady_clock::time_point end = chrono::steady_clock::now();
-  auto duration =
-      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-
-  cout << duration << " ms. ";
+  cout << duration << " s. ";
   return sum;
 }
 
@@ -127,7 +117,7 @@ int main() {
   auto critical = reduction_critical(data);
 
   cout << "\nLock:\t\t";
-  auto lk = reduction_atomic(data);
+  auto lk = reduction_lock(data);
 
   cout << "\nDirective for:\t";
   auto dir = reduction_der_for(data);
@@ -143,9 +133,9 @@ int main() {
   return 0;
 }
 /*
-Atomic:         22 ms.
-Critical:       19 ms.
-Lock:           16 ms.
-Directive for:  19 ms.
-Linear:         69 ms.
+Atomic:         0.0100679 s. 
+Critical:       0.0097207 s. 
+Lock:           0.0094414 s. 
+Directive for:  0.0133997 s. 
+Linear:         0.052538 s. 
 */

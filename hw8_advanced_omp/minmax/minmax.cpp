@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <cassert>
-#include <chrono>
 #include <cstdlib>
 #include <iostream>
 #include <omp.h>
@@ -10,7 +9,7 @@ using namespace std;
 
 template <typename T> T max_omp(const vector<T> &data) {
   T max_value = data[0];
-  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+  auto begin = omp_get_wtime();
 #pragma omp parallel for
   for (int i = 0; i < data.size(); i++) {
 
@@ -21,16 +20,14 @@ template <typename T> T max_omp(const vector<T> &data) {
       }
     }
   }
-  chrono::steady_clock::time_point end = chrono::steady_clock::now();
-  auto duration =
-      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-  cout << duration << " ms. ";
+  auto duration = omp_get_wtime() - begin;
+  cout << duration << " s. ";
   return max_value;
 }
 
 template <typename T> T max_linear(const vector<T> &data) {
   T max_value = data[0];
-  chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+  auto begin = omp_get_wtime();
 
   for (int i = 0; i < data.size(); i++) {
     {
@@ -39,10 +36,8 @@ template <typename T> T max_linear(const vector<T> &data) {
       }
     }
   }
-  chrono::steady_clock::time_point end = chrono::steady_clock::now();
-  auto duration =
-      chrono::duration_cast<chrono::milliseconds>(end - begin).count();
-  cout << duration << " ms. ";
+  auto duration = omp_get_wtime() - begin;
+  cout << duration << " s. ";
   return max_value;
 }
 
@@ -50,7 +45,7 @@ int main() {
   omp_set_dynamic(0);
   omp_set_num_threads(4);
 
-  vector<int> data(1000000, 0);
+  vector<int> data(10000000, 0);
   srand(time(0));
   generate(data.begin(), data.end(), rand);
 
@@ -65,6 +60,6 @@ int main() {
   return 0;
 }
 /*
-OpenMP: 145 ms.
-Linear: 4 ms.
+OpenMP: 1.42785 s. 
+Linear: 0.0493946 s. 
 */
