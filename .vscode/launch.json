@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw8_advanced_omp/minmax",
-      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw8_advanced_omp/minmax/build/Debug/outDebug",
+      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw8_tbb/example",
+      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw8_tbb/example/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
