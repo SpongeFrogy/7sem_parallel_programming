@@ -15,3 +15,4 @@ in general:
 - [OpenMP](hw6_omp) - simple examples of OpenMP
 - [atomic variable](hw7_atomic/atomic.cpp) - class has thread as attribute that `count` duration of working every `n` seconds. Implemented methods `start`, `stop`, `set_n`
 - [Advanced OpenMP](hw8_advanced_omp) - find min(max), different types of reduction, sections
+- [Tbb graph](hw9_tbb/graph.cpp) - tbb graph with function nodes and join node
