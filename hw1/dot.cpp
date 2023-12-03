@@ -1,6 +1,4 @@
 #include <iostream>
-#include <cmath>
-#include <time.h>
 #include <emmintrin.h>
 #include <xmmintrin.h>
 #include <assert.h>
