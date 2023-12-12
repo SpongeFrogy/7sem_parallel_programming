@@ -1,2 +1,2 @@
-clang++ -o main -fopenmp c:\Users\droid\Projects\7sem_parallel_programming\hw10_integrate\compere\main.cpp
-main.exe
+clang++ -o hw10_integrate\compere\main -fopenmp hw10_integrate\compere\main.cpp
+hw10_integrate\compere\main.exe

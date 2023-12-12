@@ -16,3 +16,5 @@ in general:
 - [atomic variable](hw7_atomic/atomic.cpp) - class has thread as attribute that `count` duration of working every `n` seconds. Implemented methods `start`, `stop`, `set_n`
 - [Advanced OpenMP](hw8_advanced_omp) - find min(max), different types of reduction, sections
 - [Tbb graph](hw9_tbb/graph.cpp) - tbb graph with function nodes and join node
+- [Comparison of parallel methods](hw10_integrate/compere/README.md) - compere omp, tbb
+- [Cuda](hw11_cuda_init/condition.cu) - count number of threads that condition(thread) == true

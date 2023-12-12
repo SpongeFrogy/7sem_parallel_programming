@@ -2,14 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "CUDA C++: Launch",
+      "type": "cuda-gdb",
+      "request": "launch",
+      "program": ""
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw10_integrate/compere",
-      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw10_integrate/compere/build/Debug/outDebug",
+      "cwd": "c:/Users/droid/Projects/7sem_parallel_programming/hw11_cuda_init",
+      "program": "c:/Users/droid/Projects/7sem_parallel_programming/hw11_cuda_init/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
